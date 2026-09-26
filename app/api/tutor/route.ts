@@ -78,6 +78,9 @@ export async function POST(req: Request) {
           // If a request is ever declined by safety classifiers, the API
           // retries it on Anthropic's recommended fallback model.
           fallbacks: "default",
+          // "medium" starts answering in ~1-2s. The default ("high") spent
+          // 10-18s reasoning silently before the first word appeared.
+          output_config: { effort: "medium" },
           system: [
             { type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } },
             { type: "text", text: `Current focus area: ${mode}` },
