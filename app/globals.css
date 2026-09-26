@@ -93,6 +93,8 @@ footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; g
 .msg.user { align-self: flex-end; background: var(--brand); color: #fff; border-bottom-right-radius: 4px; }
 .msg.assistant { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-bottom-left-radius: 4px; }
 .chat-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.follow-ups { align-self: flex-start; max-width: 88%; }
+.chip-starter { border-style: dashed; }
 .msg.summary { align-self: stretch; max-width: 100%; background: #fff8e8; border: 1px solid #f0dcaa; }
 .summary-title { font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: 8px; }
 .summary-actions { display: flex; gap: 8px; margin-top: 12px; white-space: normal; }

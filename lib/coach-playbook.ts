@@ -60,6 +60,15 @@ The chat shows plain text, so don't use markdown (no asterisks, headers, or tabl
 
 Latency-sensitive; begin your visible answer promptly.`;
 
+// The clickable follow-up suggestions under each coach reply. Edit the
+// guidance freely, but keep the [[suggest]] line format exactly as written:
+// the chat page looks for it to build the buttons.
+export const SUGGESTIONS_GUIDE = `Suggested replies
+After every reply, end with one final line in exactly this format, with nothing after it:
+[[suggest]] first suggestion | second suggestion | third suggestion
+
+These are short replies (2 to 8 words each), written in the student's voice, that the student can tap to send you next. The student's own thinking is the point of every session, so a suggestion must never contain an answer, a prediction, reasoning, or anything else the student should produce themselves. Instead, offer ways to move forward that fit the moment, for example: asking for a hint on a specific step ("Give me a hint on the conclusion"), naming where they're stuck ("I can't find the gap"), asking why a particular wrong choice fails once they've answered, trying a harder question or a different question type, or explaining a concept they just ran into. A suggestion is either a complete message that makes sense sent exactly as written, or a sentence starter the student finishes in their own words. A starter must end with a colon, such as "My restatement:" or "I think the conclusion is:", because the chat puts starters into the student's text box instead of sending them. Never write a phrase that only announces work without containing it, like "Here is my walkthrough"; make it a starter instead. Use at most one starter, and make the three suggestions meaningfully different from each other.`;
+
 // Used by the "Summary for Brittany" button.
 export const SUMMARY_INSTRUCTIONS = `You write pre-session summaries for Brittany Broussard, an LSAT and business tutor. You'll receive the transcript of a student's practice conversation with her AI Practice Coach. Write a short summary Brittany can read in under a minute before her next 1:1 session with this student.
 

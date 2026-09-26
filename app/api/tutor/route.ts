@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { validAccessCode } from "@/lib/access";
-import { COACH_PLAYBOOK, SUMMARY_INSTRUCTIONS } from "@/lib/coach-playbook";
+import { COACH_PLAYBOOK, SUGGESTIONS_GUIDE, SUMMARY_INSTRUCTIONS } from "@/lib/coach-playbook";
 
 export const runtime = "nodejs";
 export const maxDuration = 60; // seconds (hosting function limit)
@@ -76,7 +76,8 @@ export async function POST(req: Request) {
       return Response.json({ error: "Send a message first." }, { status: 400 });
     }
     system = [
-      { type: "text", text: COACH_PLAYBOOK, cache_control: { type: "ephemeral" } },
+      { type: "text", text: COACH_PLAYBOOK },
+      { type: "text", text: SUGGESTIONS_GUIDE, cache_control: { type: "ephemeral" } },
       { type: "text", text: `Current focus area: ${mode}` },
     ];
     messages = history;
