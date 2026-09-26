@@ -7,7 +7,15 @@ export const site = {
   brand: "Second Pass",
   tagline: "Your best LSAT score is one smart second pass away.",
   subhead:
-    "1:1 coaching for the LSAT, plus GMAT/GRE and business & finance courses — with an AI practice coach that works with you between sessions.",
+    "1:1 LSAT coaching from a Rice MBA candidate, plus GMAT/GRE, business & finance, and admissions support — with an AI practice coach that works with you between sessions.",
+
+  // The numbers in the row under the headline. Keep these true and current.
+  stats: [
+    { big: "4.8★", small: "from 73 student ratings" },
+    { big: "180+", small: "hours tutored" },
+    { big: "Rice", small: "MBA candidate" },
+    { big: "1:1", small: "online or in Houston" },
+  ],
   email: "hello@example.com", // your business email
   city: "Houston, TX · Online everywhere",
 
@@ -74,6 +82,7 @@ export const subjects = [
   { name: "LSAT", detail: "Logical Reasoning, Reading Comprehension, test strategy" },
   { name: "GMAT & GRE", detail: "Quant, verbal, data insights" },
   { name: "Business & Finance", detail: "Corporate finance, accounting, valuation, Excel" },
+  { name: "Admissions & Career", detail: "Personal statements, resumes, cover letters, interview prep" },
 ];
 
 // Tutors. Today it's just you — to grow into a marketplace later,
@@ -88,13 +97,21 @@ export type Tutor = {
 export const tutors: Tutor[] = [
   {
     name: "Brittany Broussard",
-    title: "Founder · LSAT & Business Tutor",
-    bio: "Rice MBA. I've helped students on Wyzant raise their LSAT scores and master business coursework. I focus on teaching you how the test thinks, not just drilling questions.",
-    subjects: ["LSAT", "GMAT", "Finance", "Accounting"],
+    title: "Founder · MBA Candidate, Rice University · Former Professional Ballet Dancer",
+    bio: "I'm an MBA candidate at Rice University. Before business school, I spent several years dancing professionally with Alberta Ballet while earning my Commerce & Business Administration degree from the University of Alabama, magna cum laude. Ballet taught me what the LSAT rewards: a disciplined, repeatable process. In our sessions, you'll explain your reasoning out loud, we'll pinpoint exactly where it breaks down, and we'll fix the habit behind the mistake, not just the question in front of you.",
+    subjects: ["LSAT", "MBA coursework", "Financial Accounting", "Business", "Essays & Personal Statements", "Interview Prep"],
   },
 ];
 
-// Add real quotes (with permission) from your students. The reviews
-// section stays hidden on the site until at least one is added. Example:
-// { quote: "My LSAT went from 158 to 169!", who: "Jordan, admitted to UT Law" },
-export const testimonials: { quote: string; who: string }[] = [];
+// Student reviews. Paste each student's words between the quotes after
+// `quote:` once they've said it's OK to use them. Any review left blank
+// stays hidden, and the whole section hides if all are blank.
+// Tip: a 1–3 sentence excerpt reads better on the site than a full review.
+export const testimonials: { quote: string; who: string }[] = [
+  // Naomi's review on Wyzant ("patient and diligent tutor")
+  { quote: "", who: "LSAT student · 19 lessons" },
+  // Jay's review on Wyzant ("A Tutor Who Truly Cares")
+  { quote: "", who: "LSAT student · 8 lessons" },
+  // Magdalene's review on Wyzant ("Amazing and Patient Tutor")
+  { quote: "", who: "Resume & cover letter student" },
+];

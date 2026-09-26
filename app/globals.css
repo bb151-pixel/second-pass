@@ -61,6 +61,7 @@ section { padding: 72px 0; }
 /* Cards & grids */
 .grid { display: grid; gap: 20px; }
 .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
 .card.featured { border: 2px solid var(--brand); position: relative; }
 .card.featured::before { content: "Most popular"; position: absolute; top: -12px; left: 24px; background: var(--accent); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }

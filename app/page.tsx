@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { site, services, subjects, tutors, testimonials } from "@/lib/site";
+import { site, services, subjects, tutors, testimonials as allTestimonials } from "@/lib/site";
 
 export default function Home() {
+  const testimonials = allTestimonials.filter((t) => t.quote.trim());
   return (
     <main>
       <section className="hero">
@@ -14,9 +15,9 @@ export default function Home() {
             <Link href="/practice" className="btn btn-ghost">Try the AI Practice Coach</Link>
           </div>
           <div className="stats">
-            <div><b>1:1</b><span>Personalized coaching</span></div>
-            <div><b>24/7</b><span>AI practice between sessions</span></div>
-            <div><b>Online</b><span>{site.city}</span></div>
+            {site.stats.map((s) => (
+              <div key={s.small}><b>{s.big}</b><span>{s.small}</span></div>
+            ))}
           </div>
         </div>
       </section>
@@ -25,7 +26,7 @@ export default function Home() {
         <div className="wrap">
           <div className="eyebrow">What I teach</div>
           <h2>Built for high-stakes tests and business school</h2>
-          <div className="grid grid-3" style={{ marginTop: 28 }}>
+          <div className="grid grid-4" style={{ marginTop: 28 }}>
             {subjects.map((s) => (
               <div className="card" key={s.name}>
                 <h3>{s.name}</h3>
