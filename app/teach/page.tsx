@@ -22,8 +22,8 @@ export default function Teach() {
           <div className="eyebrow">Teach with {site.brand}</div>
           <h1>Great scorers aren't always great teachers. We want both.</h1>
           <p className="lead">
-            {site.brand} is growing, and we're looking for tutors who can do more than know the material: tutors
-            who can get a student to explain it back.
+            {site.brand} is growing, and we're looking for online tutors who can do more than know the material:
+            tutors who can get a student to explain it back.
           </p>
           <div className="cta">
             <a href={applyLink()} className="btn btn-primary">Apply by email</a>
@@ -59,10 +59,12 @@ export default function Teach() {
           <div>
             <h2>What you get</h2>
             <ul className="facts">
-              <li>Students: we handle marketing, booking, and payments, so you can focus on teaching.</li>
-              <li>An AI practice coach for your students between sessions, set up to teach our method.</li>
-              <li>A pre-session summary of what each student practiced and where they struggled.</li>
-              <li>A flexible schedule, taught online.</li>
+              <li>Students: we market {site.brand} and match students with you.</li>
+              <li>Booking and payments: students book and pay through {site.brand}, and we pay you, so you can focus on teaching.</li>
+              <li>Training in our method: an onboarding guide and a shadow session before you start.</li>
+              <li>An AI practice coach for your students between sessions, set up to teach our method, plus a pre-session summary of what each student practiced and where they struggled.</li>
+              <li>Teach online from anywhere, on a schedule you set.</li>
+              <li>Pay is discussed on your intro call.</li>
             </ul>
           </div>
         </div>
@@ -73,7 +75,7 @@ export default function Teach() {
           <h2>How to apply</h2>
           <ol className="facts">
             <li>Email us with your subject, scores or credentials, experience, and availability, and attach your resume.</li>
-            <li>If it's a fit, we'll set up a short call.</li>
+            <li>If it's a fit, we'll set up a short intro call, where we'll also talk about pay.</li>
             <li>You'll teach a 20-minute sample lesson using our method.</li>
           </ol>
           <p style={{ marginTop: 20 }}>
