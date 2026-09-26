@@ -1,0 +1,17 @@
+# Netlify settings for Second Pass. Netlify detects Next.js automatically.
+# ANTHROPIC_API_KEY and PRACTICE_ACCESS_CODES are set privately in the
+# Netlify dashboard (Project configuration → Environment variables).
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+  # The free plan charges 15 credits per production deploy (300/month).
+  # Skip rebuilding when a push only changes the GitHub Pages copy (docs/)
+  # or the README. Always build on the first deploy or a manual retry.
+  ignore = """
+    if [ "$CACHED_COMMIT_REF" = "$COMMIT_REF" ] || [ -z "$CACHED_COMMIT_REF" ]; then exit 1; fi
+    git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- . ':(exclude)docs' ':(exclude)README.md'
+  """
+
+[build.environment]
+  NODE_VERSION = "22"

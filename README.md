@@ -15,7 +15,7 @@ Your API key lives in `.env.local`. On a new computer, copy `.env.example` to `.
 
 | Site | Address | What it is |
 |---|---|---|
-| Full app | Render (free plan). See the address in your Render dashboard | Everything, including the live AI coach. Configured by `render.yaml`. |
+| Full app | Netlify (free plan). See the address in your Netlify dashboard | Everything, including the live AI coach. Configured by `netlify.toml`. |
 | Static page | https://bb151-pixel.github.io/second-pass/docs/ | `docs/index.html` on GitHub Pages. No AI coach. Mirrors `lib/site.ts`, so update both. |
 
 **Updating the live sites:** commit your changes, then push to GitHub:
@@ -24,8 +24,11 @@ Your API key lives in `.env.local`. On a new computer, copy `.env.example` to `.
 & "C:\Program Files\Git\cmd\git.exe" -C "<this folder>" push
 ```
 
-Render and GitHub Pages both rebuild automatically from GitHub within a few minutes.
-The Render free plan sleeps after ~15 minutes without visitors; the next visit takes about a minute to wake it.
+Netlify and GitHub Pages both rebuild automatically from GitHub within a few minutes.
+
+**Netlify free plan limits:** 300 credits per month. Each Netlify rebuild costs 15 credits (about 20 per month),
+so batch your edits into one push. Pushes that only change `docs/` or this README don't trigger a Netlify rebuild.
+If credits run out, Netlify takes the site offline until the next month. Check usage under Netlify → Billing.
 
 ## Still to set up
 
@@ -36,9 +39,9 @@ The Render free plan sleeps after ~15 minutes without visitors; the next visit t
 
 ## Giving students AI access
 
-In Render, open the **second-pass** service → **Environment**, and edit `PRACTICE_ACCESS_CODES`.
+In Netlify, open your project → **Project configuration → Environment variables**, and edit `PRACTICE_ACCESS_CODES`.
 Add a code per student, separated by commas, e.g. `TEST-G5KDU2,SMITH-LSAT,JONES-LSAT`.
-To revoke access, remove the code and save. Render restarts the site automatically.
+To revoke access, remove the code, save, then go to **Deploys → Trigger deploy** so the change takes effect (uses 15 credits).
 Don't use `DEMO2026` online: it appears in this public repository.
 
 ## Wyzant note
