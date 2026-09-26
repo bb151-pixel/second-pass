@@ -2,8 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { site } from "@/lib/site";
 
-type Msg = { role: "user" | "assistant"; content: string };
+// "summary" messages are the pre-session reports; they're shown in the chat
+// but never sent back to the coach as conversation.
+type Msg = { role: "user" | "assistant" | "summary"; content: string };
 
 const MODES = [
   { id: "lsat-lr", label: "LSAT · Logical Reasoning" },
@@ -34,6 +37,7 @@ export default function Practice() {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState<number | null>(null);
   const logRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { setCode(getStored("practiceCode")); }, []);
@@ -55,19 +59,19 @@ export default function Practice() {
     }
   }
 
-  async function send(text: string) {
-    const content = text.trim();
-    if (!content || busy || !code) return;
-    const next: Msg[] = [...messages, { role: "user", content }];
-    setMessages([...next, { role: "assistant", content: "" }]);
-    setInput("");
-    setBusy(true);
+  const practice = messages.filter((m) => m.role !== "summary");
+  const canSummarize = practice.some((m) => m.role === "assistant" && m.content);
 
+  // Streams a reply from the coach into a new message of the given role.
+  async function stream(base: Msg[], role: "assistant" | "summary", task?: "summary") {
+    if (!code) return;
+    setMessages([...base, { role, content: "" }]);
+    setBusy(true);
     try {
       const res = await fetch("/api/tutor", {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-access-code": code },
-        body: JSON.stringify({ messages: next, mode }),
+        body: JSON.stringify({ messages: base.filter((m) => m.role !== "summary"), mode, task }),
       });
       if (res.status === 401) {
         setStored("practiceCode", "");
@@ -83,13 +87,38 @@ export default function Practice() {
         const { done, value } = await reader.read();
         if (done) break;
         acc += decoder.decode(value, { stream: true });
-        setMessages([...next, { role: "assistant", content: acc }]);
+        setMessages([...base, { role, content: acc }]);
       }
     } catch {
-      setMessages([...next, { role: "assistant", content: "Something went wrong. Please try again." }]);
+      setMessages([...base, { role, content: "Something went wrong. Please try again." }]);
     } finally {
       setBusy(false);
     }
+  }
+
+  function send(text: string) {
+    const content = text.trim();
+    if (!content || busy) return;
+    setInput("");
+    stream([...messages, { role: "user", content }], "assistant");
+  }
+
+  function summarize() {
+    if (busy || !canSummarize) return;
+    stream(messages, "summary", "summary");
+  }
+
+  async function copy(text: string, i: number) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(i);
+      setTimeout(() => setCopied(null), 2000);
+    } catch { /* clipboard unavailable */ }
+  }
+
+  function emailLink(text: string) {
+    const subject = encodeURIComponent("Practice summary before our next session");
+    return `mailto:${site.email}?subject=${subject}&body=${encodeURIComponent(text)}`;
   }
 
   if (!code) {
@@ -114,7 +143,13 @@ export default function Practice() {
         <select value={mode} onChange={(e) => setMode(e.target.value)} aria-label="Subject">
           {MODES.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
         </select>
-        <button className="btn btn-ghost btn-sm" onClick={() => setMessages([])} disabled={busy}>New session</button>
+        <div className="chat-actions">
+          <button className="btn btn-ghost btn-sm" onClick={summarize} disabled={busy || !canSummarize}
+            title="A short report on what you practiced, to send Brittany before your session">
+            Summary for Brittany
+          </button>
+          <button className="btn btn-ghost btn-sm" onClick={() => setMessages([])} disabled={busy}>New session</button>
+        </div>
       </div>
 
       <div className="chat-log" ref={logRef}>
@@ -126,11 +161,30 @@ export default function Practice() {
             </div>
           </div>
         )}
-        {messages.map((m, i) => (
-          <div key={i} className={`msg ${m.role}`}>
-            {m.content || (busy && i === messages.length - 1 ? "Thinking…" : "")}
-          </div>
-        ))}
+        {messages.map((m, i) => {
+          const streaming = busy && i === messages.length - 1;
+          if (m.role === "summary") {
+            return (
+              <div key={i} className="msg summary">
+                <div className="summary-title">Summary for Brittany</div>
+                {m.content || (streaming ? "Writing your summary…" : "")}
+                {m.content && !streaming && (
+                  <div className="summary-actions">
+                    <button className="btn btn-ghost btn-sm" onClick={() => copy(m.content, i)}>
+                      {copied === i ? "Copied!" : "Copy"}
+                    </button>
+                    <a className="btn btn-primary btn-sm" href={emailLink(m.content)}>Email to Brittany</a>
+                  </div>
+                )}
+              </div>
+            );
+          }
+          return (
+            <div key={i} className={`msg ${m.role}`}>
+              {m.content || (streaming ? "Thinking…" : "")}
+            </div>
+          );
+        })}
       </div>
 
       <form className="chat-input" onSubmit={(e) => { e.preventDefault(); send(input); }}>
