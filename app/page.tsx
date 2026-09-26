@@ -9,7 +9,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="wrap">
-          <div className="eyebrow">LSAT · GMAT · Executive Assessment · Admissions · Business</div>
+          <div className="eyebrow">LSAT · GMAT · Executive Assessment · Admissions · Business · AI</div>
           <h1>{site.tagline}</h1>
           <p className="lead">{site.subhead}</p>
           <div className="cta">
@@ -27,8 +27,8 @@ export default function Home() {
       <section className="band" id="subjects">
         <div className="wrap">
           <div className="eyebrow">What I teach</div>
-          <h2>Built for high-stakes tests and business school</h2>
-          <div className="grid grid-4" style={{ marginTop: 28 }}>
+          <h2>High-stakes tests, business school, and the skills that come after</h2>
+          <div className="grid grid-3" style={{ marginTop: 28 }}>
             {programs.map((p) => (
               <Link href={`/tutoring/${p.slug}`} className="card card-link" key={p.slug}>
                 <h3>{p.name}</h3>

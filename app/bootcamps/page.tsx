@@ -4,9 +4,9 @@ import { site } from "@/lib/site";
 import { bootcamps, type Bootcamp } from "@/lib/programs";
 
 export const metadata: Metadata = {
-  title: "Small-Group LSAT & GMAT Bootcamps | Second Pass",
+  title: "Small-Group LSAT, GMAT & AI Bootcamps | Second Pass",
   description:
-    "Multi-week small-group LSAT and GMAT bootcamps of up to 6 students, taught with the Second Pass out-loud method.",
+    "Multi-week small-group LSAT, GMAT, and AI skills bootcamps of up to 6 students, taught with the Second Pass out-loud method.",
 };
 
 // Until enrollment opens, the button opens a pre-filled email to join the waitlist.

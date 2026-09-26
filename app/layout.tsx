@@ -46,6 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/ai-coach">AI Practice Coach</Link>
               <Link href="/practice">Student practice login</Link>
               <Link href="/book">Book a session</Link>
+              <Link href="/teach">Teach with {site.brand}</Link>
             </div>
           </div>
           <div className="wrap" style={{ marginTop: 24 }}>

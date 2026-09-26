@@ -265,6 +265,49 @@ export const programs: Program[] = [
     ],
     coachMode: "finance",
   },
+  {
+    slug: "ai",
+    name: "AI Skills",
+    cardBlurb: "Use AI tools well for work, school, and building things",
+    eyebrow: "AI tutoring",
+    headline: "Get genuinely good at using AI.",
+    intro:
+      "1:1 coaching on using AI tools like ChatGPT and Claude for real work: writing, research, analysis, and even building simple apps. From a Rice MBA candidate studying generative AI, who built this site and its AI coach with AI tools.",
+    metaTitle: "AI Tutoring & Coaching in Houston & Online | Second Pass",
+    metaDescription:
+      "1:1 AI skills coaching for students and professionals: better prompts, checking AI's work, AI for business tasks, and building simple tools with AI.",
+    aboutTitle: "Who it's for",
+    about: [
+      "Professionals who want AI to save them real time at work",
+      "Students who want to use AI to learn, within their school's rules",
+      "Small business owners exploring what AI can do for them",
+      "Complete beginners: no technical background needed",
+    ],
+    helpWith: [
+      "Writing clear prompts and giving AI the context it needs",
+      "Using AI for research, writing, and analysis, and checking its work",
+      "Business tasks: spreadsheets, summaries, emails, and presentations",
+      "Building simple tools and websites with AI coding assistants",
+      "Using AI responsibly: privacy, accuracy, and academic integrity",
+    ],
+    approach:
+      "Same method as my test prep: you do the thinking out loud. You'll write the prompts yourself, predict what the AI will do, and explain why a result is good or bad. You'll leave able to judge AI's output, not just produce it.",
+    packages: [
+      oneOnOne("ai-single", "Get unstuck on a project or learn one skill well."),
+      {
+        id: "ai-3",
+        name: "AI Jumpstart",
+        price: "$285", // PLACEHOLDER
+        unit: "3 hours at $95/hour",
+        blurb: "From beginner to confident everyday user.",
+        features: ["3 × 60-min 1:1 sessions", "Practice on your own real tasks", "Unlimited AI Practice Coach"],
+        paymentLink: "",
+        featured: true,
+      },
+    ],
+    coachMode: "ai",
+    bootcamps: ["ai-work-bootcamp"],
+  },
 ];
 
 export type Bootcamp = {
@@ -332,6 +375,45 @@ export const bootcamps: Bootcamp[] = [
     ],
     schedule: "",
     enrollLink: "",
+  },
+  {
+    id: "ai-work-bootcamp",
+    name: "AI at Work Bootcamp",
+    test: "AI",
+    format: "3 weeks · 6 live online sessions (60 min each)", // PLACEHOLDER
+    price: "$225", // PLACEHOLDER
+    seats: "Up to 6 students",
+    blurb: "Practical AI skills for professionals, practiced on real tasks in a small group.",
+    includes: [
+      "Prompting and giving AI the right context",
+      "Research and fact-checking AI's answers",
+      "AI for spreadsheets, writing, and presentations",
+      "AI Practice Coach for the length of the course",
+    ],
+    schedule: "",
+    enrollLink: "",
+  },
+];
+
+// Open tutor roles on the "Teach with Second Pass" page (/teach).
+export type Opening = { subject: string; lookingFor: string[] };
+
+export const tutorOpenings: Opening[] = [
+  {
+    subject: "LSAT",
+    lookingFor: ["An official LSAT score of 170 or higher", "Experience teaching or tutoring the LSAT"],
+  },
+  {
+    subject: "MCAT",
+    lookingFor: ["An official MCAT score of 515 or higher, or medical school enrollment", "Strong science background across the exam's sections"],
+  },
+  {
+    subject: "CPA Exam",
+    lookingFor: ["A CPA license, or all four exam sections passed", "The ability to explain accounting concepts clearly"],
+  },
+  {
+    subject: "Bar Exam",
+    lookingFor: ["An active law license", "Experience with the jurisdiction's bar exam you'd teach"],
   },
 ];
 

@@ -7,7 +7,7 @@ export const site = {
   brand: "Second Pass",
   tagline: "Your best LSAT score is one smart second pass away.",
   subhead:
-    "1:1 LSAT coaching from a Rice MBA candidate, plus the GMAT, the Executive Assessment, admissions, and business & finance — with an AI practice coach that works with you between sessions.",
+    "1:1 LSAT coaching from a Rice MBA candidate, plus the GMAT, the Executive Assessment, admissions, business & finance, and AI skills — with an AI practice coach that works with you between sessions.",
 
   // The numbers in the row under the headline. Keep these true and current.
   stats: [
@@ -93,7 +93,7 @@ export const tutors: Tutor[] = [
     name: "Brittany Broussard",
     title: "Founder · MBA Candidate, Rice University · Former Professional Ballet Dancer",
     bio: "I'm an MBA candidate at Rice University. Before business school, I spent several years dancing professionally with Alberta Ballet while earning my Commerce & Business Administration degree from the University of Alabama, magna cum laude. Ballet taught me what the LSAT rewards: a disciplined, repeatable process. In our sessions, you'll explain your reasoning out loud, we'll pinpoint exactly where it breaks down, and we'll fix the habit behind the mistake, not just the question in front of you.",
-    subjects: ["LSAT", "GMAT", "Executive Assessment", "MBA coursework", "Financial Accounting", "Essays & Personal Statements", "Interview Prep"],
+    subjects: ["LSAT", "GMAT", "Executive Assessment", "MBA coursework", "Financial Accounting", "Essays & Personal Statements", "Interview Prep", "AI Skills"],
   },
 ];
 

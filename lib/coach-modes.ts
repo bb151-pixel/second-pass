@@ -77,6 +77,18 @@ export const COACH_MODES: CoachMode[] = [
       "Help me with a homework concept",
     ],
   },
+  {
+    id: "ai",
+    label: "AI Skills",
+    starters: [
+      "Critique a prompt I wrote",
+      "How do I give AI better context?",
+      "Quiz me on spotting AI mistakes",
+      "Help me use AI for a work task",
+      "How do I start building an app with AI?",
+      "What should I never paste into an AI tool?",
+    ],
+  },
 ];
 
 export const DEFAULT_MODE = "lsat-lr";

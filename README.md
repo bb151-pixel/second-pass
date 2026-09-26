@@ -21,13 +21,13 @@ Your API key lives in `.env.local`. On a new computer, copy `.env.example` to `.
 | Site | Address | What it is |
 |---|---|---|
 | Full app | https://secondpassprep.netlify.app | Everything, including the live AI coach. Netlify free plan, configured by `netlify.toml`. |
-| Static page | https://bb151-pixel.github.io/second-pass/docs/ | `docs/index.html` on GitHub Pages. No AI coach. Mirrors `lib/site.ts`, so update both. |
+| Old GitHub Pages address | https://bb151-pixel.github.io/second-pass/docs/ | `docs/index.html` now just forwards visitors to the Netlify site. Nothing to keep in sync. |
 
 **Updating the live sites:** commit your changes, then:
 
 - **Netlify (full app):** from this folder, run `npx.cmd netlify-cli deploy --build --prod`.
   The Netlify site isn't connected to GitHub, so pushing alone doesn't update it.
-- **GitHub Pages (static page) and the code backup:** push to GitHub, and Pages rebuilds within a minute or two:
+- **Code backup (and the GitHub Pages forwarding page):** push to GitHub:
 
 ```
 & "C:\Program Files\Git\cmd\git.exe" -C "<this folder>" push
