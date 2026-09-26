@@ -12,7 +12,7 @@ Files you'll normally edit (plain text between quotes; no coding needed):
 
 1. Double-click **`Start Tutoring Site.bat`**. The site opens in your browser at http://localhost:3000.
 2. Keep the black window open while you use the site. Close it to stop.
-3. On the AI Practice page, enter an access code from `PRACTICE_ACCESS_CODES` in `.env.local` (default: `DEMO2026`).
+3. On the AI Practice page, enter one of your access codes from the `PRACTICE_ACCESS_CODES` line in `.env.local`.
 
 Your API key lives in `.env.local`. On a new computer, copy `.env.example` to `.env.local` and paste your key in.
 
@@ -47,9 +47,9 @@ If credits run out, Netlify takes the site offline until the next month. Check u
 ## Giving students AI access
 
 In Netlify, open your project → **Project configuration → Environment variables**, and edit `PRACTICE_ACCESS_CODES`.
-Add a code per student, separated by commas, e.g. `TEST-G5KDU2,SMITH-LSAT,JONES-LSAT`.
-To revoke access, remove the code, save, then go to **Deploys → Trigger deploy** so the change takes effect (uses 15 credits).
-Don't use `DEMO2026` online: it appears in this public repository.
+Add a code per student, separated by commas (for example, a code for each student plus your own).
+To revoke access, remove the code and save; the change takes effect at the next deploy (15 credits).
+Never write real access codes in this repository or README: the repository is public.
 
 ## Wyzant note
 
