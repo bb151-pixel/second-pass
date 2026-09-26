@@ -3,53 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { COACH_MODES, DEFAULT_MODE, isCoachMode } from "@/lib/coach-modes";
 
 // "summary" messages are the pre-session reports; they're shown in the chat
 // but never sent back to the coach as conversation.
 type Msg = { role: "user" | "assistant" | "summary"; content: string };
 
-const MODES = [
-  { id: "lsat-lr", label: "LSAT · Logical Reasoning" },
-  { id: "lsat-rc", label: "LSAT · Reading Comp" },
-  { id: "gmat", label: "GMAT / GRE" },
-  { id: "finance", label: "Business & Finance" },
-];
-
-// Starter suggestions shown before the first message, per subject.
-const QUICK: Record<string, string[]> = {
-  "lsat-lr": [
-    "Give me a medium Flaw question",
-    "Give me a hard Necessary Assumption question",
-    "Give me a Strengthen question",
-    "Quiz me on finding the conclusion",
-    "Help me review a question I missed",
-    "How do I predict before reading the choices?",
-  ],
-  "lsat-rc": [
-    "Give me a short RC passage with 3 questions",
-    "Give me a comparative passage set",
-    "Help me find the author's position",
-    "Quiz me on main point questions",
-    "How should I read a science passage?",
-    "Help me review an RC question I missed",
-  ],
-  gmat: [
-    "Give me a GMAT data sufficiency question",
-    "Give me a GRE quantitative comparison question",
-    "Give me a critical reasoning question",
-    "Quiz me on percentages and ratios",
-    "How do I approach boldface questions?",
-    "Help me review a question I missed",
-  ],
-  finance: [
-    "Quiz me on NPV and IRR",
-    "Give me a WACC practice problem",
-    "Walk me through a simple DCF",
-    "How do the 3 financial statements link?",
-    "Quiz me on journal entries",
-    "Help me with a homework concept",
-  ],
-};
+// Starter suggestions per subject, before the first message.
+const QUICK: Record<string, string[]> = Object.fromEntries(COACH_MODES.map((m) => [m.id, m.starters]));
 
 // The coach ends each reply with "[[suggest]] a | b | c" (see
 // lib/coach-playbook.ts). Split that off so it becomes buttons, and hide a
@@ -83,7 +44,7 @@ export default function Practice() {
   const [code, setCode] = useState<string | null>(null);
   const [codeInput, setCodeInput] = useState("");
   const [gateError, setGateError] = useState("");
-  const [mode, setMode] = useState("lsat-lr");
+  const [mode, setMode] = useState(DEFAULT_MODE);
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -91,7 +52,12 @@ export default function Practice() {
   const [followUps, setFollowUps] = useState<string[]>([]);
   const logRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setCode(getStored("practiceCode")); }, []);
+  useEffect(() => {
+    setCode(getStored("practiceCode"));
+    // Subject pages link here as /practice?mode=gmat to open that subject.
+    const m = new URLSearchParams(window.location.search).get("mode");
+    if (isCoachMode(m)) setMode(m);
+  }, []);
   useEffect(() => { logRef.current?.scrollTo(0, logRef.current.scrollHeight); }, [messages, followUps]);
 
   async function unlock(e: React.FormEvent) {
@@ -234,7 +200,7 @@ export default function Practice() {
     <main className="chat-shell">
       <div className="chat-top">
         <select value={mode} onChange={(e) => setMode(e.target.value)} aria-label="Subject">
-          {MODES.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
+          {COACH_MODES.map((m) => <option key={m.id} value={m.id}>{m.label}</option>)}
         </select>
         <div className="chat-actions">
           <button className="btn btn-ghost btn-sm" onClick={summarize} disabled={busy || !canSummarize}

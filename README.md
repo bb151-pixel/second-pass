@@ -1,7 +1,12 @@
 # Tutoring App: Launch Guide
 
 Your own tutoring website with booking, payments and an AI Practice Coach.
-Everything you'll normally edit is in **`lib/site.ts`** (brand name, prices, bio, links).
+Files you'll normally edit (plain text between quotes; no coding needed):
+
+- **`lib/site.ts`**: brand, headline, contact email, home-page packages, bio, reviews
+- **`lib/programs.ts`**: each subject page (LSAT, GMAT, Executive Assessment, Admissions, Business), its packages and prices, and the bootcamps
+- **`lib/coach-playbook.ts`**: how the AI coach teaches, per-subject notes, suggestions, and the tutor summary
+- **`lib/coach-modes.ts`**: the AI coach's subject list and starter suggestions
 
 ## Run it on your computer
 

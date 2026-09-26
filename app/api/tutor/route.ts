@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { validAccessCode } from "@/lib/access";
-import { COACH_PLAYBOOK, SUGGESTIONS_GUIDE, SUMMARY_INSTRUCTIONS } from "@/lib/coach-playbook";
+import { COACH_PLAYBOOK, SUBJECT_GUIDES, SUGGESTIONS_GUIDE, SUMMARY_INSTRUCTIONS } from "@/lib/coach-playbook";
+import { DEFAULT_MODE } from "@/lib/coach-modes";
 
 export const runtime = "nodejs";
 export const maxDuration = 60; // seconds (hosting function limit)
@@ -11,16 +12,6 @@ const MAX_TURNS = 30;
 const MAX_CHARS = 8000;
 
 const client = new Anthropic();
-
-const MODES: Record<string, string> = {
-  "lsat-lr":
-    "LSAT Logical Reasoning: argument structure, assumptions, strengthen/weaken, flaw, inference, parallel reasoning, principle questions.",
-  "lsat-rc":
-    "LSAT Reading Comprehension: main point, author's attitude, passage structure, inference and comparative passages.",
-  gmat: "GMAT / GRE: quantitative reasoning, data insights, critical reasoning, and verbal.",
-  finance:
-    "Business & finance coursework: corporate finance, time value of money, valuation (DCF, multiples), financial accounting, financial statement analysis, and Excel modeling.",
-};
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -50,7 +41,7 @@ export async function POST(req: Request) {
   // The API requires the conversation to start with a user turn.
   while (history.length && history[0].role !== "user") history.shift();
 
-  const mode = MODES[body.mode ?? ""] ?? MODES["lsat-lr"];
+  const mode = SUBJECT_GUIDES[body.mode ?? ""] ?? SUBJECT_GUIDES[DEFAULT_MODE];
   const isSummary = body.task === "summary";
 
   let system: Anthropic.Beta.BetaTextBlockParam[];

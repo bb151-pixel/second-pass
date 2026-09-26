@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { site, services, subjects, tutors, testimonials as allTestimonials } from "@/lib/site";
+import { site, services, tutors, testimonials as allTestimonials } from "@/lib/site";
+import { programs } from "@/lib/programs";
+import PricingCard from "@/components/PricingCard";
 
 export default function Home() {
   const testimonials = allTestimonials.filter((t) => t.quote.trim());
@@ -7,7 +9,7 @@ export default function Home() {
     <main>
       <section className="hero">
         <div className="wrap">
-          <div className="eyebrow">LSAT · GMAT · GRE · Business & Finance</div>
+          <div className="eyebrow">LSAT · GMAT · Executive Assessment · Admissions · Business</div>
           <h1>{site.tagline}</h1>
           <p className="lead">{site.subhead}</p>
           <div className="cta">
@@ -22,16 +24,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="band">
+      <section className="band" id="subjects">
         <div className="wrap">
           <div className="eyebrow">What I teach</div>
           <h2>Built for high-stakes tests and business school</h2>
           <div className="grid grid-4" style={{ marginTop: 28 }}>
-            {subjects.map((s) => (
-              <div className="card" key={s.name}>
-                <h3>{s.name}</h3>
-                <p className="muted" style={{ margin: 0 }}>{s.detail}</p>
-              </div>
+            {programs.map((p) => (
+              <Link href={`/tutoring/${p.slug}`} className="card card-link" key={p.slug}>
+                <h3>{p.name}</h3>
+                <p className="muted">{p.cardBlurb}</p>
+                <span className="more">Learn more →</span>
+              </Link>
             ))}
           </div>
         </div>
@@ -63,25 +66,38 @@ export default function Home() {
           <div className="eyebrow">Pricing</div>
           <h2>Simple packages, no platform fees</h2>
           <div className="grid grid-3" style={{ marginTop: 32 }}>
-            {services.map((s) => (
-              <div className={`card${s.featured ? " featured" : ""}`} key={s.id}>
-                <h3>{s.name}</h3>
-                <div className="price">{s.price}</div>
-                <div className="unit">{s.unit}</div>
-                <p className="muted">{s.blurb}</p>
-                <ul>{s.features.map((f) => <li key={f}>{f}</li>)}</ul>
-                {s.paymentLink ? (
-                  <a href={s.paymentLink} className={`btn ${s.featured ? "btn-primary" : "btn-ghost"}`}>Buy now</a>
-                ) : (
-                  <Link href="/book" className={`btn ${s.featured ? "btn-primary" : "btn-ghost"}`}>Get started</Link>
-                )}
-              </div>
-            ))}
+            {services.map((s) => <PricingCard s={s} key={s.id} />)}
+          </div>
+          <p className="muted" style={{ marginTop: 24 }}>
+            Admissions packages and subject-specific plans are on each <a href="#subjects">subject page</a>.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <div className="wrap split">
+          <div>
+            <div className="eyebrow">Small-group bootcamps</div>
+            <h2>Learn alongside a few other students</h2>
+            <p className="muted">
+              Focused multi-week courses of up to 6 students, taught with the same out-loud method as 1:1
+              sessions, for a fraction of the per-hour price.
+            </p>
+            <Link href="/bootcamps" className="btn btn-primary">See bootcamps</Link>
+          </div>
+          <div>
+            <div className="eyebrow">AI Practice Coach</div>
+            <h2>Practice any time, on your own</h2>
+            <p className="muted">
+              Original practice questions, feedback on your reasoning, and a summary to send your tutor before
+              each session. Included with packages, or $29/month on its own.
+            </p>
+            <Link href="/ai-coach" className="btn btn-ghost">Learn about the AI Coach</Link>
           </div>
         </div>
       </section>
 
-      <section id="about">
+      <section id="about" className="band">
         <div className="wrap">
           <div className="eyebrow">Your tutor{tutors.length > 1 ? "s" : ""}</div>
           <div className="grid grid-3">
@@ -118,13 +134,6 @@ export default function Home() {
           <Link href="/book" className="btn btn-primary">Book a free consult</Link>
         </div>
       </section>
-
-      <footer>
-        <div className="wrap">
-          <span>© {new Date().getFullYear()} {site.brand}</span>
-          <a href={`mailto:${site.email}`}>{site.email}</a>
-        </div>
-      </footer>
     </main>
   );
 }
