@@ -16,7 +16,7 @@ export const site = {
     { big: "Rice", small: "MBA candidate" },
     { big: "1:1", small: "online or in Houston" },
   ],
-  email: "hello@example.com", // your business email
+  email: "brittbroussard16@gmail.com", // your business email
   city: "Houston, TX · Online everywhere",
 
   // Scheduling: create a free account at cal.com and put your username here
@@ -41,12 +41,11 @@ export type Service = {
   featured?: boolean;
 };
 
-// Placeholder prices — set these to what you want to charge.
 export const services: Service[] = [
   {
     id: "single",
     name: "Single Session",
-    price: "$150",
+    price: "$95",
     unit: "per hour",
     blurb: "Try a session, target a weak section, or get a diagnostic review.",
     features: ["60-min 1:1 session", "Diagnostic review", "7 days of AI Practice Coach"],
@@ -55,8 +54,8 @@ export const services: Service[] = [
   {
     id: "pack10",
     name: "LSAT 10-Pack",
-    price: "$1,350",
-    unit: "10 hours · save $150",
+    price: "$950",
+    unit: "10 hours at $95/hour",
     blurb: "The full plan: study schedule, weekly sessions, and unlimited practice.",
     features: [
       "10 × 60-min 1:1 sessions",
