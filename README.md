@@ -11,20 +11,35 @@ Everything you'll normally edit is in **`lib/site.ts`** (brand name, prices, bio
 
 Your API key lives in `.env.local`. On a new computer, copy `.env.example` to `.env.local` and paste your key in.
 
-## Go live (about an hour, $0 to start)
+## Where the site lives online
+
+| Site | Address | What it is |
+|---|---|---|
+| Full app | Render (free plan). See the address in your Render dashboard | Everything, including the live AI coach. Configured by `render.yaml`. |
+| Static page | https://bb151-pixel.github.io/second-pass/docs/ | `docs/index.html` on GitHub Pages. No AI coach. Mirrors `lib/site.ts`, so update both. |
+
+**Updating the live sites:** commit your changes, then push to GitHub:
+
+```
+& "C:\Program Files\Git\cmd\git.exe" -C "<this folder>" push
+```
+
+Render and GitHub Pages both rebuild automatically from GitHub within a few minutes.
+The Render free plan sleeps after ~15 minutes without visitors; the next visit takes about a minute to wake it.
+
+## Still to set up
 
 | Step | Service | What to do |
 |---|---|---|
-| 1. Scheduling | cal.com (free) | Create an account and event types ("Free 15-min consult", "60-min session"). Put your username in `lib/site.ts` → `calUsername`. |
-| 2. Payments | stripe.com | Create a Payment Link for each package. Paste each link into `lib/site.ts` → `paymentLink`. Stripe charges ~2.9% + 30¢ (vs. Wyzant's 25%). |
-| 3. AI key | console.anthropic.com | Create an API key and add a small prepaid balance ($10–20). Set a monthly spend limit. |
-| 4. Hosting | github.com + vercel.com (free) | Upload this folder to a GitHub repo, then "Import Project" in Vercel. In Vercel → Settings → Environment Variables, add `ANTHROPIC_API_KEY` and `PRACTICE_ACCESS_CODES`. |
-| 5. Domain | Vercel or Namecheap (~$12/yr) | Buy a domain (e.g. yourbrandprep.com) and connect it in Vercel → Domains. |
+| Scheduling | cal.com (free) | Create an account and event types ("Free 15-min consult", "60-min session"). Put your username in `lib/site.ts` → `calUsername`. |
+| Payments | stripe.com | Create a Payment Link for each package. Paste each link into `lib/site.ts` → `paymentLink`. Stripe charges ~2.9% + 30¢ (vs. Wyzant's 25%). |
 
 ## Giving students AI access
 
-Add a code per student (or per cohort) to `PRACTICE_ACCESS_CODES` in Vercel, e.g. `SMITH-LSAT,JONES-LSAT,FALL26`.
-To revoke access, remove the code and redeploy.
+In Render, open the **second-pass** service → **Environment**, and edit `PRACTICE_ACCESS_CODES`.
+Add a code per student, separated by commas, e.g. `TEST-G5KDU2,SMITH-LSAT,JONES-LSAT`.
+To revoke access, remove the code and save. Render restarts the site automatically.
+Don't use `DEMO2026` online: it appears in this public repository.
 
 ## Wyzant note
 
